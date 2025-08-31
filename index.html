@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Randomizador de números</title>
+    <link rel="shortcut icon" href="images/icon.svg" type="image/x-icon" />
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: black;
+      }
+      h1 {
+        color: white;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100dvh;
+        width: 100dvw;
+        gap: 10px;
+      }
+      main div {
+        width: 500px;
+        display: flex;
+      }
+      button {
+        height: 50px;
+        width: 500px;
+        background-color: black;
+        border: 2px solid white;
+        border-radius: 7px;
+        color: white;
+        font-size: 30px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        cursor: pointer;
+      }
+      .line {
+        height: 3px;
+        width: 500px;
+        background-color: white;
+      }
+      label {
+        display: flex;
+        width: 100px;
+        font-size: 18px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        height: 50px;
+        color: white;
+        align-items: center;
+      }
+      input {
+        height: 50px;
+        width: 400px;
+        outline: none;
+        background-color: black;
+        border: 2px solid white;
+        border-radius: 7px;
+        color: white;
+        font-size: 30px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        cursor: pointer;
+        padding-left: 10px;
+        padding-right: -10px;
+      }
+    </style>
+    <main>
+      <div>
+        <label for="min">MÍNIMO:</label>
+        <input type="number" id="min" value="0" />
+      </div>
+      <div>
+        <label for="max">MÁXIMO:</label>
+        <input type="number" id="max" value="10" />
+      </div>
+      <button onclick="draw()">Sortear</button>
+      <div class="line"></div>
+      <h1 id="result">n</h1>
+    </main>
+    <script>
+      const $min = document.querySelector("#min");
+      const $max = document.querySelector("#max");
+      const $result = document.querySelector("#result");
+
+      let isRandomizing = 0;
+
+      function draw() {
+        if (isRandomizing == 0) {
+          isRandomizing = 1;
+          new Audio("audio/click.wav").play();
+          let min = Number($min.value);
+          let max = Number($max.value);
+          if (max > min) {
+            let delta = max - min;
+            setTimeout(() => {
+              clearInterval(drawAnimation);
+              isRandomizing = 0;
+            }, 3500);
+            let drawAnimation = setInterval(() => {
+              $result.innerHTML = Math.round(Math.random() * delta + min);
+            }, 90);
+          } else {
+            alert("animal");
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
